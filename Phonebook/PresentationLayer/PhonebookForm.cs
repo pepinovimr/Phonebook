@@ -16,5 +16,10 @@ namespace Phonebook.PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void addContactBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

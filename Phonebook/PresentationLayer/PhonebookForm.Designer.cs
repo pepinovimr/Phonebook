@@ -34,31 +34,77 @@
             System.Windows.Forms.Label genderLabel;
             System.Windows.Forms.Label lastNameLabel;
             System.Windows.Forms.Label phoneNumberLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PhonebookForm));
             this.contactDataGridView = new System.Windows.Forms.DataGridView();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.genderTextBox = new System.Windows.Forms.TextBox();
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.addContactBtn = new System.Windows.Forms.Button();
+            this.deleteContactBtn = new System.Windows.Forms.Button();
+            this.saveBtn = new System.Windows.Forms.Button();
             this.contactBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.addContactBtn = new System.Windows.Forms.Button();
-            this.deleteContactBtn = new System.Windows.Forms.Button();
-            this.saveBtn = new System.Windows.Forms.Button();
             emailLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
             genderLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             phoneNumberLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.contactDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contactBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contactBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // emailLabel
+            // 
+            emailLabel.AutoSize = true;
+            emailLabel.Location = new System.Drawing.Point(167, 104);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new System.Drawing.Size(35, 13);
+            emailLabel.TabIndex = 1;
+            emailLabel.Text = "Email:";
+            // 
+            // firstNameLabel
+            // 
+            firstNameLabel.AutoSize = true;
+            firstNameLabel.Location = new System.Drawing.Point(167, 28);
+            firstNameLabel.Name = "firstNameLabel";
+            firstNameLabel.Size = new System.Drawing.Size(41, 13);
+            firstNameLabel.TabIndex = 3;
+            firstNameLabel.Text = "Jméno:";
+            // 
+            // genderLabel
+            // 
+            genderLabel.AutoSize = true;
+            genderLabel.Location = new System.Drawing.Point(167, 64);
+            genderLabel.Name = "genderLabel";
+            genderLabel.Size = new System.Drawing.Size(47, 13);
+            genderLabel.TabIndex = 5;
+            genderLabel.Text = "Pohlaví:";
+            // 
+            // lastNameLabel
+            // 
+            lastNameLabel.AutoSize = true;
+            lastNameLabel.Location = new System.Drawing.Point(384, 28);
+            lastNameLabel.Name = "lastNameLabel";
+            lastNameLabel.Size = new System.Drawing.Size(51, 13);
+            lastNameLabel.TabIndex = 7;
+            lastNameLabel.Text = "Příjmení:";
+            // 
+            // phoneNumberLabel
+            // 
+            phoneNumberLabel.AutoSize = true;
+            phoneNumberLabel.Location = new System.Drawing.Point(334, 64);
+            phoneNumberLabel.Name = "phoneNumberLabel";
+            phoneNumberLabel.Size = new System.Drawing.Size(82, 13);
+            phoneNumberLabel.TabIndex = 9;
+            phoneNumberLabel.Text = "Telefonní číslo:";
             // 
             // contactDataGridView
             // 
@@ -82,15 +128,6 @@
             this.contactDataGridView.Size = new System.Drawing.Size(549, 275);
             this.contactDataGridView.TabIndex = 1;
             // 
-            // emailLabel
-            // 
-            emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(167, 104);
-            emailLabel.Name = "emailLabel";
-            emailLabel.Size = new System.Drawing.Size(35, 13);
-            emailLabel.TabIndex = 1;
-            emailLabel.Text = "Email:";
-            // 
             // emailTextBox
             // 
             this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contactBindingSource, "Email", true));
@@ -98,15 +135,6 @@
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(307, 20);
             this.emailTextBox.TabIndex = 2;
-            // 
-            // firstNameLabel
-            // 
-            firstNameLabel.AutoSize = true;
-            firstNameLabel.Location = new System.Drawing.Point(167, 28);
-            firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new System.Drawing.Size(41, 13);
-            firstNameLabel.TabIndex = 3;
-            firstNameLabel.Text = "Jméno:";
             // 
             // firstNameTextBox
             // 
@@ -116,15 +144,6 @@
             this.firstNameTextBox.Size = new System.Drawing.Size(100, 20);
             this.firstNameTextBox.TabIndex = 4;
             // 
-            // genderLabel
-            // 
-            genderLabel.AutoSize = true;
-            genderLabel.Location = new System.Drawing.Point(167, 64);
-            genderLabel.Name = "genderLabel";
-            genderLabel.Size = new System.Drawing.Size(47, 13);
-            genderLabel.TabIndex = 5;
-            genderLabel.Text = "Pohlaví:";
-            // 
             // genderTextBox
             // 
             this.genderTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contactBindingSource, "Gender", true));
@@ -132,15 +151,6 @@
             this.genderTextBox.Name = "genderTextBox";
             this.genderTextBox.Size = new System.Drawing.Size(66, 20);
             this.genderTextBox.TabIndex = 6;
-            // 
-            // lastNameLabel
-            // 
-            lastNameLabel.AutoSize = true;
-            lastNameLabel.Location = new System.Drawing.Point(384, 28);
-            lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new System.Drawing.Size(51, 13);
-            lastNameLabel.TabIndex = 7;
-            lastNameLabel.Text = "Příjmení:";
             // 
             // lastNameTextBox
             // 
@@ -150,15 +160,6 @@
             this.lastNameTextBox.Size = new System.Drawing.Size(100, 20);
             this.lastNameTextBox.TabIndex = 8;
             // 
-            // phoneNumberLabel
-            // 
-            phoneNumberLabel.AutoSize = true;
-            phoneNumberLabel.Location = new System.Drawing.Point(334, 64);
-            phoneNumberLabel.Name = "phoneNumberLabel";
-            phoneNumberLabel.Size = new System.Drawing.Size(82, 13);
-            phoneNumberLabel.TabIndex = 9;
-            phoneNumberLabel.Text = "Telefonní číslo:";
-            // 
             // phoneNumberTextBox
             // 
             this.phoneNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contactBindingSource, "PhoneNumber", true));
@@ -166,6 +167,45 @@
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
             this.phoneNumberTextBox.Size = new System.Drawing.Size(140, 20);
             this.phoneNumberTextBox.TabIndex = 10;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(139, 153);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
+            // addContactBtn
+            // 
+            this.addContactBtn.Location = new System.Drawing.Point(170, 138);
+            this.addContactBtn.Name = "addContactBtn";
+            this.addContactBtn.Size = new System.Drawing.Size(90, 27);
+            this.addContactBtn.TabIndex = 12;
+            this.addContactBtn.Text = "Přidat kontakt";
+            this.addContactBtn.UseVisualStyleBackColor = true;
+            this.addContactBtn.Click += new System.EventHandler(this.addContactBtn_Click);
+            // 
+            // deleteContactBtn
+            // 
+            this.deleteContactBtn.Location = new System.Drawing.Point(305, 138);
+            this.deleteContactBtn.Name = "deleteContactBtn";
+            this.deleteContactBtn.Size = new System.Drawing.Size(130, 27);
+            this.deleteContactBtn.TabIndex = 13;
+            this.deleteContactBtn.Text = "Smazat vybraný kontakt";
+            this.deleteContactBtn.UseVisualStyleBackColor = true;
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Location = new System.Drawing.Point(471, 138);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(90, 27);
+            this.saveBtn.TabIndex = 14;
+            this.saveBtn.Text = "Uložit";
+            this.saveBtn.UseVisualStyleBackColor = true;
             // 
             // contactBindingSource
             // 
@@ -209,41 +249,6 @@
             this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn5.Width = 105;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(139, 153);
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
-            // 
-            // addContactBtn
-            // 
-            this.addContactBtn.Location = new System.Drawing.Point(170, 138);
-            this.addContactBtn.Name = "addContactBtn";
-            this.addContactBtn.Size = new System.Drawing.Size(90, 27);
-            this.addContactBtn.TabIndex = 12;
-            this.addContactBtn.Text = "Přidat kontakt";
-            this.addContactBtn.UseVisualStyleBackColor = true;
-            // 
-            // deleteContactBtn
-            // 
-            this.deleteContactBtn.Location = new System.Drawing.Point(305, 138);
-            this.deleteContactBtn.Name = "deleteContactBtn";
-            this.deleteContactBtn.Size = new System.Drawing.Size(130, 27);
-            this.deleteContactBtn.TabIndex = 13;
-            this.deleteContactBtn.Text = "Smazat vybraný kontakt";
-            this.deleteContactBtn.UseVisualStyleBackColor = true;
-            // 
-            // saveBtn
-            // 
-            this.saveBtn.Location = new System.Drawing.Point(471, 138);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(90, 27);
-            this.saveBtn.TabIndex = 14;
-            this.saveBtn.Text = "Uložit";
-            this.saveBtn.UseVisualStyleBackColor = true;
-            // 
             // PhonebookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -267,8 +272,8 @@
             this.Name = "PhonebookForm";
             this.Text = "PhonebookForm";
             ((System.ComponentModel.ISupportInitialize)(this.contactDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contactBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contactBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
