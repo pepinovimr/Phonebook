@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Phonebook.DataAccessLayer;
 
 namespace Phonebook.BusinessLogicLayer
@@ -43,6 +44,12 @@ namespace Phonebook.BusinessLogicLayer
         }
         public void EditContact(Contact contact)
         {
+            if (ValidateContact(contact))
+            {
+                ErrorWindow("");
+                return;
+            }
+                
         }
         public bool ValidateContact(Contact contact)
         {
@@ -61,6 +68,10 @@ namespace Phonebook.BusinessLogicLayer
                 return false;
 
             return true;
+        }
+        public void ErrorWindow(string errorMsg)
+        {
+            MessageBox.Show("Chyba", errorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
