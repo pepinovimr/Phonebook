@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Phonebook.BusinessLogicLayer;
+using Phonebook.DataAccessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +14,25 @@ namespace Phonebook.PresentationLayer
 {
     public partial class PhonebookForm : Form
     {
+        ContactBUS logic = new ContactBUS();
         public PhonebookForm()
         {
             InitializeComponent();
+            contactBindingSource.DataSource = logic._contactDAO.ContactsList;
         }
 
         private void addContactBtn_Click(object sender, EventArgs e)
         {
-
+            var c = new Contact()
+            { FirstName = "Já", LastName = "On", Gender = "muž", Phone = "725836436", Email = "pepa@seznam.cz" };
+            logic.EditContact(c);
+            AddToDatagrid(c);
+        }
+        private void AddToDatagrid(Contact contact)
+        {
+            contactBindingSource.Add(contact);
+            contactDataGridView.Update();
+            contactDataGridView.Refresh();
         }
     }
 }

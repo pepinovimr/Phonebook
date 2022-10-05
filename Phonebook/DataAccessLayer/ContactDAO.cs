@@ -23,14 +23,14 @@ namespace Phonebook.DataAccessLayer
         }
 
         private readonly string path = 
-            Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, "Resources", "FakePeople.json");
+            Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName, "Resources", "FakePeople.json");
         public List<Contact> ContactsList = new List<Contact>();
 
         private List<Contact> DeserializeList()
         {
             try
             {
-                var deserializedList = JsonConvert.DeserializeObject<List<Contact>>(path);
+                var deserializedList = JsonConvert.DeserializeObject<List<Contact>>(File.ReadAllText(path));
                 return deserializedList;
             }
             catch(Exception e)

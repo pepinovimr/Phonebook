@@ -9,7 +9,7 @@ namespace Phonebook.DataAccessLayer
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }          //string bcs apparently we have like 38 thousand new genders now..:)
-        public MailAddress Email { get; set; }      //might be better than string, also provides some variety
-        public string PhoneNumber { get; set; }
+        public string Email { get; set; }      //might be better than string, also provides some variety
+        public string Phone { get; set; }
     }
 }

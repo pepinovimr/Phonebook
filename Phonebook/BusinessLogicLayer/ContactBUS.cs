@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ namespace Phonebook.BusinessLogicLayer
 {
     internal class ContactBUS
     {
-        ContactDAO _contactDAO = ContactDAO.Instance;
+        public ContactDAO _contactDAO = ContactDAO.Instance;
         private Contact selectedContact;
         public ContactBUS() { }
 
@@ -46,19 +47,31 @@ namespace Phonebook.BusinessLogicLayer
         {
             if (!ValidateContact(contact))
                 return;
+            bool doesListContainContact = 
+                _contactDAO.ContactsList.Any(item => item.Email == contact.Email || item.Phone == contact.Phone);
+            if (doesListContainContact)
+            {
+                ErrorWindow("Trying to add duplicate items: Email and Phone number mus be unique!");
+                return;
+            }
+                
+            if (_contactDAO.ContactsList.Count == 0 || selectedContact == null)
+                _contactDAO.ContactsList.Add(contact);
+            else
+                _contactDAO.ContactsList[_contactDAO.ContactsList.IndexOf(selectedContact)] = contact;
 
         }
         public bool ValidateContact(Contact contact)
         {
-            //determine if all of contacts properties are null/empty
-            bool isValid = contact.GetType().GetProperties()
-            .Where(pi => pi.PropertyType == typeof(string))
-            .Select(pi => (string)pi.GetValue(contact))
-            .All(value => string.IsNullOrEmpty(value));
-            if (isValid == false)
+            //determine if any of contacts properties values are null/empty
+            var properties = contact.GetType().GetProperties();
+            foreach(var property in properties)
             {
-                ErrorWindow("All properties are empty!");
-                return false;
+                if(string.IsNullOrEmpty((string)property.GetValue(contact)))
+                {
+                    ErrorWindow("Not all properties are filled!");
+                    return false;
+                }
             }
             //validating email adress
             if (!new EmailAddressAttribute().IsValid(contact.Email))
@@ -67,17 +80,16 @@ namespace Phonebook.BusinessLogicLayer
                 return false;
             }
             //Validate phone number
-            if (!Regex.IsMatch(contact.PhoneNumber, "^?[+]([0-9]{3})?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$"))
+            if (!Regex.IsMatch(contact.Phone, "^?([+][0-9]{3})?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$"))
             {
                 ErrorWindow("Phone number has wrong format!");
                 return false;
             }
-
             return true;
         }
         public void ErrorWindow(string errorMsg)
         {
-            MessageBox.Show("Chyba", errorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorMsg, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
