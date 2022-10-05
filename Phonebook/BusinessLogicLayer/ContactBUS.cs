@@ -11,7 +11,7 @@ namespace Phonebook.BusinessLogicLayer
     {
         ContactDAO _contactDAO = ContactDAO.Instance;
         private Contact selectedContact;
-        public ContactBUS(){}
+        public ContactBUS() { }
 
         public void AddNewContact(Contact contact)
         {
@@ -44,12 +44,9 @@ namespace Phonebook.BusinessLogicLayer
         }
         public void EditContact(Contact contact)
         {
-            if (ValidateContact(contact))
-            {
-                ErrorWindow("");
+            if (!ValidateContact(contact))
                 return;
-            }
-                
+
         }
         public bool ValidateContact(Contact contact)
         {
@@ -59,13 +56,22 @@ namespace Phonebook.BusinessLogicLayer
             .Select(pi => (string)pi.GetValue(contact))
             .All(value => string.IsNullOrEmpty(value));
             if (isValid == false)
+            {
+                ErrorWindow("All properties are empty!");
                 return false;
+            }
             //validating email adress
             if (!new EmailAddressAttribute().IsValid(contact.Email))
+            {
+                ErrorWindow("Email address has wrong format!");
                 return false;
+            }
             //Validate phone number
             if (!Regex.IsMatch(contact.PhoneNumber, "^?[+]([0-9]{3})?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$"))
+            {
+                ErrorWindow("Phone number has wrong format!");
                 return false;
+            }
 
             return true;
         }
