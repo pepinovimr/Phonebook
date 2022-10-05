@@ -26,13 +26,15 @@ namespace Phonebook.PresentationLayer
             var c = new Contact()
             { FirstName = "Já", LastName = "On", Gender = "muž", Phone = "725836436", Email = "pepa@seznam.cz" };
             logic.EditContact(c);
-            AddToDatagrid(c);
+            
+            //TODO: add binding to list, so that when you change list, datagrid changes too
+
+            //AddToDatagrid(c);
         }
         private void AddToDatagrid(Contact contact)
         {
+            contactBindingSource.AddNew();
             contactBindingSource.Add(contact);
-            contactDataGridView.Update();
-            contactDataGridView.Refresh();
         }
     }
 }
