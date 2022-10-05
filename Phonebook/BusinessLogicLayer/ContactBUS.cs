@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Phonebook.DataAccessLayer;
 
 namespace Phonebook.BusinessLogicLayer
@@ -50,14 +51,16 @@ namespace Phonebook.BusinessLogicLayer
             .Where(pi => pi.PropertyType == typeof(string))
             .Select(pi => (string)pi.GetValue(contact))
             .All(value => string.IsNullOrEmpty(value));
-
+            if (isValid == false)
+                return false;
             //validating email adress
             if (!new EmailAddressAttribute().IsValid(contact.Email))
                 return false;
+            //Validate phone number
+            if (!Regex.IsMatch(contact.PhoneNumber, "^?[+]([0-9]{3})?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$"))
+                return false;
 
-
-
-            return isValid;
+            return true;
         }
     }
 }
