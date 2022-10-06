@@ -14,63 +14,74 @@ namespace Phonebook.BusinessLogicLayer
         private Contact selectedContact;
         public ContactBUS() { }
 
-        public void AddNewContact(Contact contact)
+        public bool AddNewContact(Contact contact)
         {
-            ValidateContact(contact);
-            _contactDAO.ContactsList.Add(contact);
+            if (ValidateContact(contact))
+            {
+                if (!_contactDAO.ContactsList.Contains(contact))
+                {
+                    _contactDAO.ContactsList.Add(contact);
+                    MessageBox.Show("Kontakt přidán");
+                    return true;
+                }
+                else
+                    ErrorWindow("Seznam tento kontakt již obsahuje");
+            }
+            return false;
         }
-        public bool RemoveContact(Contact contact)
+        public bool  RemoveContact(Contact contact)
         {
 
             if (!_contactDAO.ContactsList.Contains(contact))
+            {
+                ErrorWindow("Nelze odstranit kontakt: Kontakt není v seznamu");
                 return false;
-                _contactDAO.ContactsList.Remove(contact);
-                return true;
+            }
+            _contactDAO.ContactsList.Remove(contact);
+            MessageBox.Show("Kontakt odstraněn");
+            return true;
         }
         public void fillSelectedContact(Contact contact)
         {
             selectedContact = contact;
         }
-        public void EditContact(Contact contact)
+        public bool EditContact(Contact contact)
         {
             if (!ValidateContact(contact))
-                return;
+                return false;
             bool doesListContainContact = 
-                _contactDAO.ContactsList.Any(item => item.Email == contact.Email || item.Phone == contact.Phone);
+                _contactDAO.ContactsList.Any(item => item.Email == contact.Email && item.Phone == contact.Phone);
             if (doesListContainContact)
             {
-                ErrorWindow("Trying to add duplicate items: Email and Phone number mus be unique!");
-                return;
+                ErrorWindow("Snažíte se přidat duplicitní Kontakty: Email a Telefonní číslo musí být unikátní");
+                return false;
             }
-                
-            if (_contactDAO.ContactsList.Count == 0 || selectedContact == null)
-                _contactDAO.ContactsList.Add(contact);
-            else
-                _contactDAO.ContactsList[_contactDAO.ContactsList.IndexOf(selectedContact)] = contact;
 
+            _contactDAO.ContactsList[_contactDAO.ContactsList.IndexOf(selectedContact)] = contact;
+            MessageBox.Show("Kontakt upraven");
+            return true;
         }
         public bool ValidateContact(Contact contact)
         {
+            ContactValidator validator = new ContactValidator(contact);
             //determine if any of contacts properties values are null/empty
-            var properties = contact.GetType().GetProperties();
-            foreach(var property in properties)
+            if (validator.isContactEmpty())
             {
-                if(string.IsNullOrEmpty((string)property.GetValue(contact)))
-                {
-                    ErrorWindow("Not all properties are filled!");
-                    return false;
-                }
-            }
-            //validating email adress
-            if (!new EmailAddressAttribute().IsValid(contact.Email))
-            {
-                ErrorWindow("Email address has wrong format!");
+                ErrorWindow("Některé pole nejsou vyplněna!");
                 return false;
             }
-            //Validate phone number
-            if (!Regex.IsMatch(contact.Phone, "^?([+][0-9]{3})?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$"))
+
+            //validating email adress
+            if (!validator.isEmailValid())
             {
-                ErrorWindow("Phone number has wrong format!");
+                ErrorWindow("Emailová adresa má špatný formát!!");
+                return false;
+            }
+
+            //Validate phone number
+            if (!validator.isPhoneValid())
+            {
+                ErrorWindow("Telefonní číslo má špatný formát!");
                 return false;
             }
             return true;
