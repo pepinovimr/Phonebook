@@ -16,28 +16,16 @@ namespace Phonebook.BusinessLogicLayer
 
         public void AddNewContact(Contact contact)
         {
-            try
-            {
-                _contactDAO.ContactsList.Add(contact);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            ValidateContact(contact);
+            _contactDAO.ContactsList.Add(contact);
         }
         public bool RemoveContact(Contact contact)
         {
+
             if (!_contactDAO.ContactsList.Contains(contact))
                 return false;
-            try
-            {
                 _contactDAO.ContactsList.Remove(contact);
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
         public void fillSelectedContact(Contact contact)
         {

@@ -23,18 +23,14 @@ namespace Phonebook.PresentationLayer
 
         private void addContactBtn_Click(object sender, EventArgs e)
         {
-            var c = new Contact()
-            { FirstName = "Já", LastName = "On", Gender = "muž", Phone = "725836436", Email = "pepa@seznam.cz" };
-            logic.EditContact(c);
-            
-            //TODO: add binding to list, so that when you change list, datagrid changes too
-
-            //AddToDatagrid(c);
+            logic.AddNewContact(GetContactFromTextBoxs());
+            contactBindingSource.ResetBindings(false);
         }
-        private void AddToDatagrid(Contact contact)
+        private Contact GetContactFromTextBoxs()
         {
-            contactBindingSource.AddNew();
-            contactBindingSource.Add(contact);
+            var c = new Contact()
+            { FirstName = firstNameTextBox.Text, LastName = lastNameTextBox.Text, Gender = genderTextBox.Text, Phone = phoneTextBox.Text, Email = emailTextBox.Text };
+            return c;
         }
     }
 }

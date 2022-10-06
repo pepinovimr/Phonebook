@@ -37,6 +37,7 @@ namespace Phonebook.DataAccessLayer
             {
                 throw new Exception("Error while deserialization" + e.Message);
             }
+
         }
         protected void SerializeList(List<Contact> list)
         {
