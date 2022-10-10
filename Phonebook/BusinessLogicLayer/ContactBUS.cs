@@ -18,7 +18,7 @@ namespace Phonebook.BusinessLogicLayer
         {
             if (ValidateContact(contact))
             {
-                if (!_contactDAO.ContactsList.Contains(contact))
+                if (!_contactDAO.ContactsList.Contains(contact))    //Does not work withouth Contact implementing IEquatable
                 {
                     _contactDAO.ContactsList.Add(contact);
                     MessageBox.Show("Kontakt přidán");

@@ -8,7 +8,12 @@ namespace Phonebook.DataAccessLayer
     internal class ContactDAO
     {
         //Singleton - kinda fits here bcs we dont want more instances of List, also wanted to try it...
-        private ContactDAO() { ContactsList.AddRange(DeserializeList());}
+        private ContactDAO() 
+        { 
+            var list = DeserializeList();  
+            if(list != null) 
+                ContactsList.AddRange(list);
+        }
         private static ContactDAO instance = null;
         public static ContactDAO Instance
         {
@@ -21,7 +26,7 @@ namespace Phonebook.DataAccessLayer
                 return instance;
             }
         }
-
+        //Got the Json from: https://www.mockaroo.com/
         private readonly string path = 
             Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName, "Resources", "FakePeople.json");
         public List<Contact> ContactsList = new List<Contact>();
@@ -35,23 +40,23 @@ namespace Phonebook.DataAccessLayer
             }
             catch(Exception e)
             {
-                throw new Exception("Error while deserialization" + e.Message);
+                throw new Exception("Chyba při deserializaci" + e.Message);
             }
 
         }
-        protected void SerializeList(List<Contact> list)
+        public void SerializeList(List<Contact> list)
         {
             try
             {
-                string output = JsonConvert.SerializeObject(list);
-                using(StreamWriter sw = new StreamWriter(path))
+                string output = JsonConvert.SerializeObject(list, Formatting.Indented);
+                using (StreamWriter sw = new StreamWriter(path))
                 {
-                    JsonConvert.SerializeObject(list);
+                    sw.Write(output);
                 };
             }
             catch (Exception e)
             {
-                throw new Exception("Error while serialization/writing" + e.Message);
+                throw new Exception("Chyba při serializaci, zapisování" + e.Message);
             }
         }
     }

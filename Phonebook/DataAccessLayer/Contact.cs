@@ -1,10 +1,9 @@
 ﻿
 using System;
-using System.Net.Mail;
 
 namespace Phonebook.DataAccessLayer
 {
-    internal class Contact : IEquatable<Contact>   //VO - Value Object
+    internal class Contact : IEquatable<Contact>   //VO - Value Object|| Needs to implement IEquitable and define Equals so that the Contains method works
     {
         public Contact() { }
         public string FirstName { get; set; }

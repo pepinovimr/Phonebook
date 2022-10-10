@@ -56,6 +56,7 @@ namespace Phonebook.PresentationLayer
             {
                 contactBindingSource.ResetBindings(false);
                 addTextToTextBoxes();
+                logic._contactDAO.SerializeList(logic._contactDAO.ContactsList);
             }
         }
 
