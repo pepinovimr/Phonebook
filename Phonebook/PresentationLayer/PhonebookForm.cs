@@ -24,7 +24,8 @@ namespace Phonebook.PresentationLayer
         private void addContactBtn_Click(object sender, EventArgs e)
         {
             OnButtonClick<bool>(logic.AddNewContact(GetContactFromTextBoxes()));
-            //TODO: scroll to end of dg so that user can see change
+            //scrolls to end of dg so that user can see change
+            contactDataGridView.FirstDisplayedScrollingRowIndex = contactDataGridView.Rows.Count - 1;
         }
         private void saveBtn_Click(object sender, EventArgs e)
         {
